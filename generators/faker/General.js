@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker');
-
+const {validate}= require('./ValidateType')
 const schema= (i,table)=>{
     faker.seed(i)
     switch (table){
@@ -26,6 +26,20 @@ const schema= (i,table)=>{
 }
 
 
+const tableCreate = (tablename, data) => {
+    let types = validate(data);
+    console.log(types);
+    let columns = Object.keys(schema(0, tablename));
+    let script = `CREATE TABLE if not exists ${tablename} (`;
+    columns.forEach((column) => {
+        script += `${column} ${types[column]},`;
+    });
+    script = script.slice(0, -1);
+    script += `);`;
+    script += `truncate table ${tablename};`;
+    return script;
+};
+
 module.exports = {
     data: (limit,tablename)=> {
         let data = []
@@ -33,20 +47,15 @@ module.exports = {
             let d= {}
             let keys= Object.keys(schema(i,tablename))
             keys.forEach((key)=>{
-                d[key]= schema(i)[key]
+                d[key]= schema(i,tablename)[key]
             })
             data.push(d)
         }
-        return data},
-    table: (tablename)=>{
-        let columns= Object.keys(schema(0))
-        let script= `CREATE TABLE if not exists ${tablename} (`
-        columns.forEach((column)=>{
-            script+= `${column} TEXT,`
-        })
-        script= script.slice(0,-1)
-        script+= `);`
-        script+= `truncate table ${tablename};`
-        return script
-    }
+
+        return {
+            data:data,
+            tablename:tablename,
+            table: tableCreate(tablename,data)
+        }}
+
 }

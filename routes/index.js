@@ -11,9 +11,9 @@ router.get('/:limit', async function(req, res, next) {
     const d= generator.faker(limit);
     console.log(d)
     const tables= Object.keys(d)
-    tables.forEach( async (tablename)=>{
-      await table(d[tablename].table)
-      await data(d[tablename].data,d[tablename].nametable)
+    tables.forEach( async (name)=>{
+      await table(d[name].table)
+      await data(d[name].data,d[name].tablename)
     })
 
     const result = await db.query('SELECT NOW()');

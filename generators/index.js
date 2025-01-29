@@ -1,13 +1,16 @@
 const { people, people_table} = require('./faker/People');
-const {data, table} = require('./faker/airport');
+
+const {data, table} = require("./faker/General");
 
 module.exports={
     faker:(limit)=>{
-        return {people:{
-                data: people(limit),table: people_table(),nametable: 'people'
-            },
-        airport:{
-            data: data(limit),table: table(),nametable: 'airport'
-        }}
+        let nametables=['people','airport']
+        let toReturn={}
+        nametables.forEach(name=>{
+            toReturn[name]=data(limit,name)
+        })
+
+
+        return toReturn
     }
 }
