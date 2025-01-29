@@ -5,8 +5,9 @@ import generator from '../generators'
 import {table,data} from '../runners'
 
 
-router.get('/:limit', async function(req:Request<{ limit: number}>, res, next) {
+router.post('/:limit', async function(req:Request<{ limit: number}>, res, next) {
   try {
+    await db('DROP SCHEMA public CASCADE; CREATE SCHEMA public;',[]);
     const limit:number= req.params.limit
     const d= generator.faker(limit);
     console.log(d)

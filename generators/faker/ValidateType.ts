@@ -18,13 +18,13 @@
             if (types.every(a => types[0] === a)) {
                 if (types[0] === 'string') {
                     validate[column] = 'TEXT'
-                } else if (types[0] === 'number') {
+                }
+                if (subData[0].toString().at(-3)===".") {
+                    validate[column] = 'DECIMAL'
+                }
+                if (types[0] === 'number') {
                     validate[column] = 'INTEGER'
-                    if (subData[0].toString().includes('.')) {
-                        validate[column] = 'DECIMAL'
-                    }
-                } else {
-                    validate[column] = 'TEXT'
+
                 }
             }else{
                 validate[column] = 'TEXT'

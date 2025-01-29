@@ -21,9 +21,29 @@ const schema= (i,table)=>{
                 name: faker.airline.airport()['name'],
                 iata: faker.airline.airport()['iataCode'],
             }
+        case 'airline':
+            return{
+                id:i,
+                name: faker.airline.airline()['name'],
+                iata: faker.airline.airline()['iataCode'],
+            }
+            case 'airplane':
+            return{
+                id:i,
+                type: faker.airline.aircraftType(),
+                name: faker.airline.airplane()['name'],
+                iata: faker.airline.airplane()['iataTypeCode'],
+                color: faker.color.rgb()
     }
+        case 'seat':
+            return{
+                id:i,
+                seat: faker.airline.seat(),
+                price: faker.commerce.price(),
 
-}
+            }
+
+}}
 
 
 const tableCreate = (tablename, data) => {
