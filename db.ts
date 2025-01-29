@@ -8,8 +8,10 @@ pool.on('connect', () => {
     console.log('Connected to the database');
 });
 
-module.exports = {
-    query: (text, params) => {
+
+    const query= (text, params) => {
 
         return pool.query(text, params)}
-};
+
+export default query
+

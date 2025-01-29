@@ -1,6 +1,7 @@
-let db = require('../db');
-module.exports = {
-    data:async(data,table)=>{
+import db from '../db'
+
+
+    const data=async(data,table)=>{
         let script= `INSERT INTO ${table} (`
         let columns= Object.keys(data[0])
         columns.forEach((column)=>{
@@ -24,11 +25,12 @@ module.exports = {
         })
         script= script.slice(0,-1)
         script+= `;`
-       await db.query(script)
-    },
-    table:async(script)=> {
+        await db(script,[])
+    }
+
+    const table=async(script)=> {
         if (script !== 'undefined') {
-            await db.query(script)
+            await db(script,[])
         }
     }
-}
+export {data,table}

@@ -1,5 +1,5 @@
-const { faker } = require('@faker-js/faker');
-const {validate}= require('./ValidateType')
+import {faker} from "@faker-js/faker";
+import validate from "./ValidateType";
 const schema= (i,table)=>{
     faker.seed(i)
     switch (table){
@@ -40,8 +40,8 @@ const tableCreate = (tablename, data) => {
     return script;
 };
 
-module.exports = {
-    data: (limit,tablename)=> {
+
+    const data= (limit,tablename)=> {
         let data = []
         for(let i = 0; i < limit; i++){
             let d= {}
@@ -58,4 +58,4 @@ module.exports = {
             table: tableCreate(tablename,data)
         }}
 
-}
+export default data

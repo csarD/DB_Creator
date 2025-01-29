@@ -1,5 +1,5 @@
-module.exports = {
-    validate: (data) => {
+
+    const validate= (data) => {
         let size = data.size
         if (size > 10) {
             size = 10
@@ -33,4 +33,4 @@ module.exports = {
         })
         return validate
     }
-}
+export default validate

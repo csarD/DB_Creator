@@ -1,9 +1,8 @@
-const { people, people_table} = require('./faker/People');
 
-const {data, table} = require("./faker/General");
+import data from './faker/General'
 
-module.exports={
-    faker:(limit)=>{
+const generator ={
+    faker:(limit:number)=>{
         let nametables=['people','airport']
         let toReturn={}
         nametables.forEach(name=>{
@@ -14,3 +13,5 @@ module.exports={
         return toReturn
     }
 }
+
+export default generator
