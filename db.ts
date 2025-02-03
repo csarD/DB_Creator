@@ -2,6 +2,7 @@ const { Pool } = require('pg');
 require('dotenv').config();
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
+    max:100
 });
 
 pool.on('connect', () => {
@@ -9,7 +10,10 @@ pool.on('connect', () => {
 });
 
 
-    const query= (text, params) => {
+
+
+
+    const query= (text: string, params: any[]) => {
 
         return pool.query(text, params)}
 
