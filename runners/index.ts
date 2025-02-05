@@ -1,4 +1,5 @@
 import db from '../db'
+import {save} from "../External/Elastic";
 
 
 const data = async (data: any[], table: string) => {
@@ -23,6 +24,8 @@ const data = async (data: any[], table: string) => {
     const table=async(script)=> {
         if (script !== 'undefined') {
             await db(script,[])
+            console.log(script)
+            save("prueba",{ script } )
         }
     }
 export {data,table}
