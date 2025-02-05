@@ -9,7 +9,14 @@ services:
       - db
     environment:
       - DATABASE_URL=postgres://postgres:password@db:5432/mydatabase
-
+  kibana:
+    image: kibana:7.8.1
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
   db:
     image: postgres:13
     environment:
@@ -20,6 +27,15 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+  elasticsearch:
+    image: elasticsearch:7.8.1
+    ports:
+      - "9200:9200"
+    environment:
+      discovery.type: 'single-node'
+      xpack.security.enabled: 'true'
+      ELASTIC_PASSWORD: '<your_password>'
+      ES_JAVA_OPTS: '-Xmx2g -Xms2g'
 
 volumes:
   pgdata:
